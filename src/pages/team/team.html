@@ -1,0 +1,18 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Creacion de Equipos</ion-title>
+  </ion-navbar>
+ 
+</ion-header>
+
+<ion-content padding>
+ 
+    <form (ngSubmit)="CrearJugador(form)">
+      <ion-item>
+        <ion-label>Nombre/Apodo</ion-label>
+        <ion-input type="text" placeholder="Campo Requerido" [(ngModel)]="nombre" name="jugador.nombre"></ion-input>
+      </ion-item>
+      <button ion-button type="submit" block>Agregar Jugador</button>
+    </form>
+</ion-content>
