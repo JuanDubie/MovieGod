@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Storage, IonicStorageModule } from '@ionic/storage';
 import { Http, HttpModule } from '@angular/http';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
   
 
@@ -22,7 +22,7 @@ import { TeamPage } from '../pages/team/team';
   ],
   imports: [
     BrowserModule,
-    FormBuilder,
+    FormsModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

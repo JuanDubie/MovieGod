@@ -1,6 +1,7 @@
 export class Equipo {
     public nombre: string;
-    public jugadores:[string]
+    public equipoA:[string]
+    public equipoB: [string]
     constructor() {
     }
 

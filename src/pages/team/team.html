@@ -8,11 +8,67 @@
 
 <ion-content padding>
  
-    <form (ngSubmit)="CrearJugador(form)">
+    <form (ngSubmit)="CrearJugador()">
       <ion-item>
         <ion-label>Nombre/Apodo</ion-label>
-        <ion-input type="text" placeholder="Campo Requerido" [(ngModel)]="nombre" name="jugador.nombre"></ion-input>
+        <ion-input type="text" placeholder="Campo Requerido" [(ngModel)]="jugador.nombre" name="nombre"></ion-input>
       </ion-item>
       <button ion-button type="submit" block>Agregar Jugador</button>
     </form>
+
+<ion-item>
+
+<table>
+  <tbody>
+    <tr *ngFor="let t of team">
+      <td>{{t}}</td>
+      <td>
+        <button  type="button" (click)="EliminarJugador(t)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</ion-item>
+
+<div *ngIf="mostrar">
+
+
+<button  ion-button (click)="CrearEquipo()" block> Crear equipos </button>
+
+</div>
+
+<div>
+
+<ion-label>Equipo A</ion-label>
+  <table>
+    <tbody>
+      <tr *ngFor="let tA of teamA">
+      <td>{{tA}}</td>
+      </tr> 
+      </tbody>
+    </table>
+  <ion-label>Equipo A</ion-label>
+  <table>
+    <tbody>
+      <tr *ngFor="let tA of teamA">
+        <td>{{tA}}</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+<!-- <ion-item>
+
+<ion-label>Equipo B</ion-label>
+  <table>
+    <tbody>
+      <tr *ngFor="let tB of teamB">
+        <td>{{tB}}</td>
+      </tr>
+    </tbody>
+  </table>
+</ion-item> -->
+
 </ion-content>
