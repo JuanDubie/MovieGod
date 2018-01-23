@@ -40,7 +40,7 @@
 
 </div>
 
-<div>
+<div *ngIf="mostrarEquipos" >
 
 <ion-label>Equipo A</ion-label>
   <table>
@@ -50,18 +50,7 @@
       </tr> 
       </tbody>
     </table>
-  <ion-label>Equipo A</ion-label>
-  <table>
-    <tbody>
-      <tr *ngFor="let tA of teamA">
-        <td>{{tA}}</td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
-<!-- <ion-item>
-
-<ion-label>Equipo B</ion-label>
+  <ion-label>Equipo B</ion-label>
   <table>
     <tbody>
       <tr *ngFor="let tB of teamB">
@@ -69,6 +58,7 @@
       </tr>
     </tbody>
   </table>
-</ion-item> -->
+  </div>
+
 
 </ion-content>

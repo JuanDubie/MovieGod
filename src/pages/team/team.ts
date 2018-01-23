@@ -24,6 +24,7 @@ export class TeamPage {
   public mostrar;
   public teamA;
   public teamB;
+  public mostrarEquipos;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.team =[];
@@ -31,6 +32,7 @@ export class TeamPage {
     this.mostrar=false;
     this.teamA=[];
     this.teamB=[]
+    this.mostrarEquipos=false;
   }
 
   ionViewDidLoad() {
@@ -54,28 +56,45 @@ export class TeamPage {
   }
 
   CrearEquipo() {
-
+    this.teamA=[];
+    this.teamB=[];
     var arrayA = [];
     var arrayB = [];
-
+    var contA=0;
+    var contB=0;
+    var mitad = this.team.length/2;
+    
     this.team.map(function (key) {
-      var numero = Math.floor((Math.random() * 2) + 1);
-      // if ((numero === 2 )&& (teamA <= (n / 2))){
-      //   teamA.push(key);
-      //   console.log(teamA);
-      // }
-      if ((numero === 2)) {
+       var numero = Math.floor((Math.random() * 2) + 1);
+      if(contA===mitad){
+        
+       numero=1;
+      }
+      if (contB === mitad) {
+        numero = 2;
+      }
+
+      if ((numero === 2) && (arrayA.length <= mitad)) {
+        contA++;
         arrayA.push(key);
 
-      }
 
-      if ((numero === 1)) {
+      }else{
+        contB++;
         arrayB.push(key);
-
+        
       }
+
+
+      
 
     });
 
+
+
+
+
+    this.mostrarEquipos=true;
     this.teamA = arrayA;
     this.teamB = arrayB;
    
