@@ -11,13 +11,13 @@ import { FormsModule } from '@angular/forms';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { TeamPage } from '../pages/team/team';
+
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    TeamPage
+   
 
   ],
   imports: [
@@ -29,7 +29,6 @@ import { TeamPage } from '../pages/team/team';
   entryComponents: [
     MyApp,
     HomePage,
-    TeamPage
   ],
   providers: [
     StatusBar,

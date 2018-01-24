@@ -6,59 +6,63 @@
  
 </ion-header>
 
-<ion-content padding>
+<ion-content padding id="body">
  
     <form (ngSubmit)="CrearJugador()">
-      <ion-item>
+      <ion-item id="body">
         <ion-label>Nombre/Apodo</ion-label>
         <ion-input type="text" placeholder="Campo Requerido" [(ngModel)]="jugador.nombre" name="nombre"></ion-input>
       </ion-item>
-      <button ion-button type="submit" block>Agregar Jugador</button>
+      <button ion-button block color="dark" type="submit" block>Agregar Jugador</button>
     </form>
 
-<ion-item>
-
-<table>
-  <tbody>
-    <tr *ngFor="let t of team">
-      <td>{{t}}</td>
-      <td>
-        <button  type="button" (click)="EliminarJugador(t)">
-          <ion-icon name="trash"></ion-icon>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-</ion-item>
+<div>
+<!-- <ion-label style="color:black">Participantes</ion-label> -->
+<ion-grid>
+  <ion-row *ngFor="let t of team">
+    <ion-col>
+      {{t}}
+    </ion-col>
+    <ion-col>
+      <button type="button" (click)="EliminarJugador(t)">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</div>
 
 <div *ngIf="mostrar">
 
 
-<button  ion-button (click)="CrearEquipo()" block> Crear equipos </button>
+<button ion-button block color="dark" (click)="CrearEquipo()" block> Crear equipos </button>
 
 </div>
 
-<div *ngIf="mostrarEquipos" >
+<div *ngIf="mostrarEquipos" id="equipos">
 
-<ion-label>Equipo A</ion-label>
-  <table>
-    <tbody>
-      <tr *ngFor="let tA of teamA">
-      <td>{{tA}}</td>
-      </tr> 
-      </tbody>
-    </table>
-  <ion-label>Equipo B</ion-label>
-  <table>
-    <tbody>
-      <tr *ngFor="let tB of teamB">
-        <td>{{tB}}</td>
-      </tr>
-    </tbody>
-  </table>
+<ion-label style="color:red ">Equipo Rojo</ion-label>
+  <ion-grid>
+    <ion-row *ngFor="let tA of teamA">
+      <ion-col>
+         {{tA}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-label style="color:blue">Equipo Azul</ion-label>
+  <ion-grid>
+    <ion-row *ngFor="let tB of teamB">
+      <ion-col>
+       {{tB}}
+      </ion-col>
+      </ion-row>
+  </ion-grid>
   </div>
 
 
+
+<button *ngIf="jugar" ion-button block color="dark" (click)=Juego() block> Arrancar Juego </button>
+
+
 </ion-content>
+

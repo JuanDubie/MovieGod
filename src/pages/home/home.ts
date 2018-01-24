@@ -12,6 +12,6 @@ export class HomePage {
   }
 
   CrearEquipos(){
-    this.navCtrl.push(TeamPage);
+    this.navCtrl.push("TeamPage");
   };
 }

@@ -1,0 +1,44 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>juego</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding id="body">
+
+<p  *ngIf="arrancarB">Arranca el equipo Azul</p>
+
+<p *ngIf="arrancarA" >Arranca el equipo Rojo</p>
+
+<h2>Elegir una de estas 3 peliculas</h2>
+
+<ion-label>Peliculas</ion-label>
+<ion-grid id="pelicula"  *ngFor="let peli of peliculasAmostar">
+    <ion-row>
+    <button ion-button block color="dark" (click)=elegir(peli) block> {{peli}} </button>
+    </ion-row> 
+</ion-grid>
+
+<ion-grid> 
+Score
+<ion-row>
+  Equipo Rojo
+  <ion-col>
+    {{scoreA}}
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  Equipo Azul
+  <ion-col>
+   {{scoreB}}
+  </ion-col>
+</ion-row>
+  
+</ion-grid> 
+
+
+</ion-content>
