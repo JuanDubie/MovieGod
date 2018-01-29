@@ -1,6 +1,9 @@
-export class Equipo {
-    public titulo: string;
-    public actores: [string]
+export class Pelicula {
+    public peliculasA =[];
+    public peliculasB = [];
+    public peliculasAcopia= [];
+    public peliculasBcopia= [];
+
     constructor() {
     }
 

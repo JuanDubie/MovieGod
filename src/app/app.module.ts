@@ -7,6 +7,7 @@ import { Storage, IonicStorageModule } from '@ionic/storage';
 import { Http, HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
+
   
 
 import { MyApp } from './app.component';
@@ -23,7 +24,8 @@ import { HomePage } from '../pages/home/home';
   imports: [
     BrowserModule,
     FormsModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Equipo } from '../../models/equipos';
-import { Jugador } from '../../models/jugador';
+import { Storage } from '@ionic/storage';
+
 
 
  function even(cont) {
@@ -22,8 +23,7 @@ export class TeamPage {
   public player;
   public nombre;
   public contador;
-  public jugador: Jugador = new Jugador;
-  public equipo: Equipo = new Equipo;
+  public equipo: Equipo = new Equipo();
   public mostrar;
   public teamA;
   public teamB;
@@ -32,7 +32,7 @@ export class TeamPage {
   public participantes;
   public scoreB;
   public scoreA;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private storage: Storage,public navCtrl: NavController, public navParams: NavParams) {
     this.participantes=false;
     this.team =[];
     this.contador=0;
@@ -40,14 +40,12 @@ export class TeamPage {
     this.teamA=[];
     this.teamB=[]
     this.mostrarEquipos=false;
+  
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TeamPage');
-  }
   CrearJugador() {
     this.contador++;
-    this.team.push(this.jugador.nombre);
+    this.team.push(this.nombre);
     var estado = even(this.team.length);
     if((estado==true)&&(this.contador>=4)){
       this.mostrar=true;
@@ -68,11 +66,11 @@ export class TeamPage {
 
   CrearEquipo() {
 
-    this.teamA=[];
-    this.teamB=[];
+    this.teamA = [];
+    this.teamB = [];
     this.jugar=false;
-    var arrayA = [];
-    var arrayB = [];
+    var arrayA =[];
+    var arrayB =[];
     var contA=0;
     var contB=0;
     var mitad = this.team.length/2;
@@ -92,6 +90,7 @@ export class TeamPage {
       if ((numero === 2) && (arrayA.length <= mitad)) {
         contA++;
         arrayA.push(key);
+        
       }
       else
       {
@@ -102,21 +101,25 @@ export class TeamPage {
     });
 
     this.mostrarEquipos=true;
-    this.teamA = arrayA;
-    this.teamB = arrayB;
-    ;
+    
+    
+    
+    this.equipo.equipoA=arrayA;
+    this.equipo.equipoB=arrayB;
     this.jugar = true;
   } 
 
 
 
     Juego(){
-      this.scoreA=0;
-      this.scoreB=0;
-      localStorage.setItem("EquipoA", JSON.stringify(this.teamA));
-      localStorage.setItem("EquipoB", JSON.stringify(this.teamB));
-      localStorage.setItem("ScoreA", JSON.stringify(this.scoreA));
-      localStorage.setItem("ScoreB", JSON.stringify(this.scoreB));
+     
+      this.equipo.scoreA=0;
+      this.equipo.scoreB=0;
+      
+      this.storage.set('Equipos', this.equipo);
+    
+    
+
       this.navCtrl.push("JuegoPage");
   }
 

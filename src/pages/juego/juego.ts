@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+
 
 
 @IonicPage()
@@ -9,10 +11,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class JuegoPage {
 
-  public peliculasA;
   public peliculasAmostar;
   public peliculasAcopia;
-  public peliculasB;
   public peliculasBmostar;
   public peliculasBcopia;
   public equipoA;
@@ -23,60 +23,76 @@ export class JuegoPage {
   public arrancarB;
   public scoreA;
   public scoreB;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.peliculasA= ['Deseando amar', 'Pozos de ambición', '¡Olvídate de mí!', 'El árbol de la vida',
-  'No es país para viejos', 'Hijos de los hombres', '‘4 meses, 3 semanas y 2 días', 'Holy Motors',
-   ' La cinta blanca', 'Lost in Translation', 'La red social', 'La última noche', 'Hable con ella', 'Oldboy', 'La vida de los otros',
-   'El caballero oscuro', 'Tigre y dragón', 'Ciudad de Dios'];
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
     this.peliculasAmostar=[];
     this.peliculasBmostar = [];
-    this.peliculasAcopia=[];
-    this.peliculasB=['El nuevo mundo', '12 años de esclavitud', 'Adiós al lenguaje', 'The Assassin',
-    'La noche más oscura', 'Under the Skin', 'En tierra hostil', 'Inteligencia Artificial','La mujer sin cabeza',
-   'Lejos del cielo', 'El secreto de sus ojos','Déjame entrar'];
-    this.peliculasBcopia=[];
     this.equipoA=[];
     this.equipoB=[];
     this.peliculaA;
     this.peliculaB;
     this.arrancarA=false;
-    this.arrancarB = false;
+    this.arrancarB =false;
   }
 
   ionViewWillEnter(){
-  
-    this.equipoA = JSON.parse(localStorage.getItem("EquipoA"));
-    this.equipoB = JSON.parse(localStorage.getItem("EquipoB"));
-    this.scoreA = JSON.parse(localStorage.getItem("ScoreA"));
-    this.scoreB = JSON.parse(localStorage.getItem("ScoreB"));
-    this.peliculasAcopia=this.peliculasA;
-    this.peliculasBcopia = this.peliculasB;
+    this.storage.get('Equipos').then((val) => {
+     this.equipoA=val.equipoA;
+     this.equipoB=val.equipoB;
+     this.scoreA=val.scoreA;
+      this.scoreB = val.scoreB; 
+    });
+    this.storage.get('Peliculas').then((val) => {
+
+      this.peliculasAcopia=val.peliculasAcopia;
+
+      this.peliculasBcopia =val.peliculasBcopia;
+      
+    });
+
     var numero = Math.floor((Math.random() * 2) + 1);
-
+    var time=this;
     if(numero===2){
-      this.arrancarB =true ;
-      
-      
+      time.arrancarB = true; 
+      setTimeout(function () {
+        time.arrancarB = false; 
+      }, 
+        2000);
+      console.log(this.peliculasBcopia);
+      for (var j = 0; j < 3; j++) {
+        this.peliculasBmostar.push(this.peliculasBcopia[j]);
+        console.log(this.peliculasBmostar);
+        //this.peliculasBcopia.splice(this.peliculasBcopia.indexOf(this.peliculasBmostar[j]), 1);
+      }
+
     }else{
-      this.arrancarA = true;
+
+      console.log(this.peliculasAcopia);
+      time.arrancarA = true;
+      setTimeout(function () {
+        time.arrancarA = false;
+      },
+        2000);
+    
+      for (var i = 0; i < 3; i++) {
+        this.peliculasAmostar.push(this.peliculasAcopia[i]);
+        console.log(this.peliculasAmostar);
+        //this.peliculasAcopia.splice(this.peliculasAcopia.indexOf(this.peliculasAmostar[i]), 1);
+        
+
+      }
+ 
       
     }
 
-    for(var i=0;i < 3;i++){
-      this.peliculasAmostar.push(this.peliculasAcopia[i]);
-      // this.peliculasAcopia.splice(this.peliculasAcopia.indexOf(this.peliculasAmostar[i]),1);
-    }
 
-    for (var j = 0; j < 3; j++) {
-      this.peliculasBmostar.push(this.peliculasBcopia[j]);
-      // this.peliculasBcopia.splice(this.peliculasBcopia.indexOf(this.peliculasBmostar[j]), 1);
-    }
   }
 
   elegir(peli) {
 console.log(peli);
-  this.peliculaA=peli;
-    localStorage.setItem("PeliA", JSON.stringify(this.peliculaA));
+    this.peliculaA=peli;
+
+    // localStorage.setItem("PeliA", JSON.stringify(this.peliculaA));
 
     this.navCtrl.push("PeliPage");
   }

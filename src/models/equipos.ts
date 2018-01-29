@@ -1,7 +1,8 @@
 export class Equipo {
-    public nombre: string;
-    public equipoA:[string]
-    public equipoB: [string]
+    public equipoA = [];
+    public equipoB =[];
+    public scoreA:number;
+    public scoreB: number;
     constructor() {
     }
 
