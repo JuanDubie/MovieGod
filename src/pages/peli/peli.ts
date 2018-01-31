@@ -16,16 +16,19 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'peli.html',
 })
 export class PeliPage {
-  public peliA;
+  public peli;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
-    this.peliA;
+    this.peli;
   }
 
   
   ionViewWillEnter(){
-     this.peliA = JSON.parse(localStorage.getItem("PeliA"));
-     console.log(this)
+    this.storage.get('PeliculaJuego').then((val) => {
+      this.peli=val;
+    });
+    
+   
   }
 
 }

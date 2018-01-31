@@ -23,6 +23,7 @@ export class JuegoPage {
   public arrancarB;
   public scoreA;
   public scoreB;
+  public estado;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
     this.peliculasAmostar=[];
@@ -33,6 +34,7 @@ export class JuegoPage {
     this.peliculaB;
     this.arrancarA=false;
     this.arrancarB =false;
+    this.estado=0;
   }
 
   ionViewWillEnter(){
@@ -41,60 +43,78 @@ export class JuegoPage {
      this.equipoB=val.equipoB;
      this.scoreA=val.scoreA;
       this.scoreB = val.scoreB; 
+      
     });
     this.storage.get('Peliculas').then((val) => {
-
+      console.log(val);
       this.peliculasAcopia=val.peliculasAcopia;
 
       this.peliculasBcopia =val.peliculasBcopia;
-      
-    });
+      return true;  
+    })
+    .then(()=>{
+      this.peliculasAmostar = [];
+      this.peliculasBmostar = [];
 
-    var numero = Math.floor((Math.random() * 2) + 1);
-    var time=this;
-    if(numero===2){
+      var numero = Math.floor((Math.random() * 2) + 1);
+     var time=this;
+      if(numero===2){
       time.arrancarB = true; 
       setTimeout(function () {
         time.arrancarB = false; 
       }, 
         2000);
-      console.log(this.peliculasBcopia);
+     
+        this.estado=2;
       for (var j = 0; j < 3; j++) {
         this.peliculasBmostar.push(this.peliculasBcopia[j]);
-        console.log(this.peliculasBmostar);
-        //this.peliculasBcopia.splice(this.peliculasBcopia.indexOf(this.peliculasBmostar[j]), 1);
+        this.peliculasBcopia.splice(this.peliculasBcopia.indexOf(this.peliculasBmostar[j]), 1);
       }
 
     }else{
 
-      console.log(this.peliculasAcopia);
+        this.estado = 1;
       time.arrancarA = true;
       setTimeout(function () {
         time.arrancarA = false;
       },
         2000);
-    
+
       for (var i = 0; i < 3; i++) {
-        this.peliculasAmostar.push(this.peliculasAcopia[i]);
-        console.log(this.peliculasAmostar);
-        //this.peliculasAcopia.splice(this.peliculasAcopia.indexOf(this.peliculasAmostar[i]), 1);
-        
+        this.peliculasAmostar.push(this.peliculasAcopia[i]);  
+         this.peliculasAcopia.splice(this.peliculasAcopia.indexOf(this.peliculasAmostar[i]), 1);
 
       }
- 
-      
-    }
 
+    }
+     
+    });
+    
 
   }
 
   elegir(peli) {
-console.log(peli);
-    this.peliculaA=peli;
+    if(this.estado==2){
+      this.peliculaB=peli;
+      this.peliculasBmostar.splice(this.peliculasBmostar.indexOf(peli), 1);
+      this.peliculasBmostar.map(key=>{
+        this.peliculasBcopia.push(key);
+      })
+      this.storage.set('PeliculaJuego', this.peliculaB);
+      this.storage.set('Peliculas.peliculasBcopia', this.peliculasAcopia);
+      this.navCtrl.push("PeliPage");
+    }else{
+      this.peliculaA=peli;
+      this.peliculasAmostar.splice(this.peliculasAmostar.indexOf(peli), 1);
+      this.peliculasAmostar.map(key => {
+        this.peliculasAcopia.push(key);
+      })
+      this.storage.set('PeliculaJuego', this.peliculaA);
+      this.storage.set('Peliculas.peliculasAcopia', this.peliculasAcopia);
+      this.navCtrl.push("PeliPage"); 
+    }
+    
 
-    // localStorage.setItem("PeliA", JSON.stringify(this.peliculaA));
-
-    this.navCtrl.push("PeliPage");
   }
 
   

@@ -16,11 +16,20 @@
 <h2>Elegir una de estas 3 peliculas</h2>
 
 <ion-label>Peliculas</ion-label>
-<ion-grid id="pelicula"  *ngFor="let peli of peliculasAmostar">
+<div *ngIf=peliculasAmostar>
+<ion-grid  id="pelicula"  *ngFor="let peliA of peliculasAmostar">
     <ion-row>
-    <button ion-button block color="dark" (click)=elegir(peli) block> {{peli}} </button>
+    <button ion-button block color="dark" (click)=elegir(peliA) block> {{peliA}} </button>
     </ion-row> 
 </ion-grid>
+</div>
+<div *ngIf=peliculasBmostar >
+<ion-grid  id="pelicula" *ngFor="let peliB of peliculasBmostar">
+  <ion-row>
+    <button ion-button block color="dark" (click)=elegir(peliB) block> {{peliB}} </button>
+  </ion-row>
+</ion-grid>
+</div>
 
 <ion-grid> 
 Score
