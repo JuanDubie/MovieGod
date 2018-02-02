@@ -17,18 +17,44 @@ import { Storage } from '@ionic/storage';
 })
 export class PeliPage {
   public peli;
+  public timer;
+  public maxTime
+  public hidevalue 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
     this.peli;
+    this.timer;
+    this.hidevalue = false;
   }
+  maxtime: any = 30
 
+  StartTimer() {
+    
+    this.timer = setTimeout(x => {
+      if (this.maxTime <= 0) { }
+      this.maxTime -= 1;
+      console.log(this.timer);
+      if (this.maxTime > 0) {
+        this.hidevalue = false;
+        this.StartTimer();
+      }
+
+      else {
+        this.hidevalue = true;
+      }
+
+    }, 1000);
+
+
+  }
   
+    
   ionViewWillEnter(){
     this.storage.get('PeliculaJuego').then((val) => {
       this.peli=val;
     });
     
-   
   }
+  
 
 }

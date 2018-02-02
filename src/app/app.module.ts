@@ -4,14 +4,11 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Storage, IonicStorageModule } from '@ionic/storage';
-import { Http, HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
-
-
-  
-
+import { SQLite } from '@ionic-native/sqlite';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { TasksServiceProvider } from '../providers/tasks-service/tasks-service';
 
 
 @NgModule({
@@ -35,7 +32,9 @@ import { HomePage } from '../pages/home/home';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    SQLite,
+    TasksServiceProvider,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })
 export class AppModule {}

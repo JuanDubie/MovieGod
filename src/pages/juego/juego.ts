@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { Pelicula } from '../../models/peliculas';
 
 
 
@@ -24,6 +25,9 @@ export class JuegoPage {
   public scoreA;
   public scoreB;
   public estado;
+  public pelicula: Pelicula = new Pelicula();
+  public peliculasA;
+  public peliculasB;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
     this.peliculasAmostar=[];
@@ -39,56 +43,71 @@ export class JuegoPage {
 
   ionViewWillEnter(){
     this.storage.get('Equipos').then((val) => {
-     this.equipoA=val.equipoA;
-     this.equipoB=val.equipoB;
-     this.scoreA=val.scoreA;
-      this.scoreB = val.scoreB; 
+    this.equipoA=val.equipoA;
+    this.equipoB=val.equipoB;
+    this.scoreA=val.scoreA;
+    this.scoreB=val.scoreB; 
       
     });
     this.storage.get('Peliculas').then((val) => {
-      console.log(val);
-      this.peliculasAcopia=val.peliculasAcopia;
-
-      this.peliculasBcopia =val.peliculasBcopia;
-      return true;  
+      this.peliculasA = val.peliculasA;
+      this.pelicula.peliculasA = val.peliculasA;
+      this.pelicula.peliculasB = val.peliculasB;
+      this.pelicula.peliculasAcopia=val.peliculasAcopia;
+      this.pelicula.peliculasBcopia =val.peliculasBcopia;
+    return true;  
     })
     .then(()=>{
       this.peliculasAmostar = [];
       this.peliculasBmostar = [];
 
       var numero = Math.floor((Math.random() * 2) + 1);
-     var time=this;
+      var time=this;
+
       if(numero===2){
+
       time.arrancarB = true; 
+
       setTimeout(function () {
+
         time.arrancarB = false; 
+
       }, 
         2000);
      
-        this.estado=2;
-      for (var j = 0; j < 3; j++) {
-        this.peliculasBmostar.push(this.peliculasBcopia[j]);
-        this.peliculasBcopia.splice(this.peliculasBcopia.indexOf(this.peliculasBmostar[j]), 1);
+        this.estado=2
+        
+      for (var j = 0; j <= 2; j++) {
+        this.peliculasBmostar.push(this.pelicula.peliculasBcopia[j]);
       }
+      for (var e = 0; e<= 2; e++) {
+        this.pelicula.peliculasBcopia.shift();
 
-    }else{
+      }
+      
 
-        this.estado = 1;
+       }else{
+
+      this.estado = 1;
       time.arrancarA = true;
       setTimeout(function () {
-        time.arrancarA = false;
+      time.arrancarA = false;
       },
-        2000);
+      2000);
 
-      for (var i = 0; i < 3; i++) {
-        this.peliculasAmostar.push(this.peliculasAcopia[i]);  
-         this.peliculasAcopia.splice(this.peliculasAcopia.indexOf(this.peliculasAmostar[i]), 1);
+      for (var i = 0; i <= 2; i++) {
+        this.peliculasAmostar.push(this.pelicula.peliculasAcopia[i]);  
 
+      }
+      for (var r = 0; r <= 2; r++) {
+      this.pelicula.peliculasAcopia.shift();
+       
       }
 
     }
      
     });
+
     
 
   }
@@ -98,19 +117,23 @@ export class JuegoPage {
       this.peliculaB=peli;
       this.peliculasBmostar.splice(this.peliculasBmostar.indexOf(peli), 1);
       this.peliculasBmostar.map(key=>{
-        this.peliculasBcopia.push(key);
+        this.pelicula.peliculasBcopia.push(key);
       })
+
+      console.log(this.pelicula);
       this.storage.set('PeliculaJuego', this.peliculaB);
-      this.storage.set('Peliculas.peliculasBcopia', this.peliculasAcopia);
+      this.storage.set('Peliculas', this.pelicula);
       this.navCtrl.push("PeliPage");
+
     }else{
       this.peliculaA=peli;
       this.peliculasAmostar.splice(this.peliculasAmostar.indexOf(peli), 1);
       this.peliculasAmostar.map(key => {
-        this.peliculasAcopia.push(key);
+        this.pelicula.peliculasAcopia.push(key);
       })
+      console.log(this.pelicula);
       this.storage.set('PeliculaJuego', this.peliculaA);
-      this.storage.set('Peliculas.peliculasAcopia', this.peliculasAcopia);
+      this.storage.set('Peliculas', this.pelicula);
       this.navCtrl.push("PeliPage"); 
     }
     
