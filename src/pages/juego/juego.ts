@@ -123,6 +123,7 @@ export class JuegoPage {
       console.log(this.pelicula);
       this.storage.set('PeliculaJuego', this.peliculaB);
       this.storage.set('Peliculas', this.pelicula);
+      this.storage.set('Juega',this.equipoB);
       this.navCtrl.push("PeliPage");
 
     }else{
@@ -134,6 +135,7 @@ export class JuegoPage {
       console.log(this.pelicula);
       this.storage.set('PeliculaJuego', this.peliculaA);
       this.storage.set('Peliculas', this.pelicula);
+       this.storage.set('Juega',this.equipoA);
       this.navCtrl.push("PeliPage"); 
     }
     

@@ -13,10 +13,11 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding id="peli">
 
-  <h1>{{peli}}</h1>
-
-  <h2>Tiempo</h2>
-  <button ion-button block color="dark" (click)=StartTimer() block>Start Time</button>
+  <h1>{{peli}}</h1> 
+  <button *ngIf="hide" ion-button block color="dark" (click)=StartTimer() block>Start Time</button>
+  <p>{{timer}}</p>
+  <button *ngIf="mostrar" ion-button block color="dark" (click)=gano() block>Si</button>
+  <button *ngIf="mostrar" ion-button block color="dark" (click)=perdio() block>No</button>
 </ion-content>
